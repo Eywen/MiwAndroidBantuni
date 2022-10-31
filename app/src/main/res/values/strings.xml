@@ -46,6 +46,10 @@
     <!-- Diálogo Final -->
     <string name="txtDialogoFinalTitulo">Fin del juego</string>
     <string name="txtDialogoFinalPregunta">¿Desea jugar otra partida?</string>
+    <string name="txtDialogoResetTitulo">Reinicio del juego</string>
+    <string name="txtDialogoResetPregunta">¿Desea reiniciar la partida?</string>
+
+    <!-- Diálogo Common -->
     <string name="txtDialogoFinalAfirmativo">Sí</string>
     <string name="txtDialogoFinalNegativo">No</string>
 

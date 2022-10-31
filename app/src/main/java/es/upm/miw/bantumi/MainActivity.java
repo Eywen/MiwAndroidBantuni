@@ -1,6 +1,7 @@
 package es.upm.miw.bantumi;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -126,6 +127,8 @@ public class MainActivity extends AppCompatActivity {
                         .setPositiveButton(android.R.string.ok, null)
                         .show();
                 return true;
+            case R.id.opcReiniciarPartida:
+                accionReiniciar();
 
             // @TODO!!! resto opciones
 
@@ -195,5 +198,9 @@ public class MainActivity extends AppCompatActivity {
 
         // @TODO guardar puntuación
         new FinalAlertDialog().show(getSupportFragmentManager(), "ALERT_DIALOG");
+    }
+
+    public void accionReiniciar(){
+        new ResetAlertDialog().show(getSupportFragmentManager(), "ALERT_DIALOG");
     }
 }
