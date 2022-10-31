@@ -53,4 +53,7 @@
     <string name="txtDialogoFinalAfirmativo">Sí</string>
     <string name="txtDialogoFinalNegativo">No</string>
 
+    <!-- Nombre (por defecto) del Fichero para gardar la partida-->
+    <string name="default_NombreFich">fichero_juego.txt</string>
+
 </resources>

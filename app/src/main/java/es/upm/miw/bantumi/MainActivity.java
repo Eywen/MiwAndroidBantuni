@@ -1,6 +1,7 @@
 package es.upm.miw.bantumi;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,11 +12,15 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import es.upm.miw.bantumi.model.BantumiViewModel;
@@ -129,6 +134,9 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.opcReiniciarPartida:
                 accionReiniciar();
+                return true;
+            case R.id.opcGuardarPartida:
+                accionGuardarPartidaSF();
 
             // @TODO!!! resto opciones
 
@@ -140,6 +148,28 @@ public class MainActivity extends AppCompatActivity {
                 ).show();
         }
         return true;
+    }
+
+    private void accionGuardarPartidaSF() {
+        String juego = juegoBantumi.serializa();
+        Log.i(LOG_TAG,"juego serializado: ".concat(juego));
+        try {  // Añadir al fichero
+            FileOutputStream fos;
+
+            fos = openFileOutput(obtenerNombreFichero(), Context.MODE_APPEND); // Memoria interna
+            fos.write(juegoBantumi.serializa().getBytes());
+            fos.write('\n');
+            fos.close();
+            Log.i(LOG_TAG, "Click Guardar partida en SF -> " + juego);
+
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "FILE I/O ERROR: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private String obtenerNombreFichero() {
+        return getResources().getString(R.string.default_NombreFich);
     }
 
     /**
