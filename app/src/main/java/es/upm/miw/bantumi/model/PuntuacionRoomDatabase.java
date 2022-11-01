@@ -6,12 +6,14 @@ import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @Database(entities = {PuntuacionEntity.class}, version = 1, exportSchema = false)
+@TypeConverters({ConverterFecha.class}) //Converter para el tipo fecha de PuntuacionEntity
 public abstract class PuntuacionRoomDatabase extends RoomDatabase{
     public static final String BASE_DATOS = PuntuacionEntity.TABLA + ".db";
 

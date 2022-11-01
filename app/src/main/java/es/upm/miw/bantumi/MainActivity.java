@@ -2,6 +2,7 @@ package es.upm.miw.bantumi;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -13,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.preference.PreferenceManager;
 
 import com.google.android.material.snackbar.Snackbar;
 
@@ -22,6 +24,9 @@ import java.io.InputStreamReader;
 import java.util.Locale;
 
 import es.upm.miw.bantumi.model.BantumiViewModel;
+import es.upm.miw.bantumi.model.PuntuacionEntity;
+import es.upm.miw.bantumi.model.PuntuacionRepository;
+import es.upm.miw.bantumi.model.PuntuacionViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     JuegoBantumi juegoBantumi;
     BantumiViewModel bantumiVM;
     int numInicialSemillas;
+    private String prefNombreJugador;
+    PuntuacionViewModel puntuacionViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +48,17 @@ public class MainActivity extends AppCompatActivity {
         numInicialSemillas = getResources().getInteger(R.integer.intNumInicialSemillas);
         bantumiVM = new ViewModelProvider(this).get(BantumiViewModel.class);
         juegoBantumi = new JuegoBantumi(bantumiVM, JuegoBantumi.Turno.turnoJ1, numInicialSemillas);
+        puntuacionViewModel = new ViewModelProvider(this).get(PuntuacionViewModel.class);
         crearObservadores();
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+
+        prefNombreJugador = sharedPref.getString("nombreJugador", getString(R.string.prefDefaultNombreJugador));
+        ((TextView) findViewById(R.id.tvPlayer1)).setText(prefNombreJugador);
     }
 
     /**
@@ -256,8 +273,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void guardarPuntuacion() {
-        this.juegoBantumi.getSemillas(POSICION_ALMACEN1);
-        this.juegoBantumi.getSemillas(POSICION_ALMACEN2);
+        PuntuacionEntity puntuacion = new PuntuacionEntity(prefNombreJugador,
+                this.bantumiVM.getNumSemillas(POSICION_ALMACEN1).getValue(),
+                this.bantumiVM.getNumSemillas(POSICION_ALMACEN2).getValue());
+        puntuacionViewModel.insert(puntuacion);
     }
 
     public void accionReiniciar(){
