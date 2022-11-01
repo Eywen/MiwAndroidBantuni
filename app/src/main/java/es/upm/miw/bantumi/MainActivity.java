@@ -2,7 +2,6 @@ package es.upm.miw.bantumi;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -12,7 +11,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -21,14 +19,14 @@ import com.google.android.material.snackbar.Snackbar;
 import java.io.BufferedReader;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 import es.upm.miw.bantumi.model.BantumiViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final int POSICION_ALMACEN1 = 6;
+    private static final int POSICION_ALMACEN2 = 13;
     protected final String LOG_TAG = "MiW";
     JuegoBantumi juegoBantumi;
     BantumiViewModel bantumiVM;
@@ -253,8 +251,13 @@ public class MainActivity extends AppCompatActivity {
         )
         .show();
 
-        // @TODO guardar puntuación
+        this.guardarPuntuacion();
         new FinalAlertDialog().show(getSupportFragmentManager(), "ALERT_DIALOG");
+    }
+
+    private void guardarPuntuacion() {
+        this.juegoBantumi.getSemillas(POSICION_ALMACEN1);
+        this.juegoBantumi.getSemillas(POSICION_ALMACEN2);
     }
 
     public void accionReiniciar(){
