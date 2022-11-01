@@ -2,6 +2,8 @@ package es.upm.miw.bantumi;
 
 import android.util.Log;
 
+import java.util.Arrays;
+
 import es.upm.miw.bantumi.model.BantumiViewModel;
 
 public class JuegoBantumi {
@@ -195,6 +197,8 @@ public class JuegoBantumi {
         StringBuilder juego = new StringBuilder();
         for (int i = 0; i < NUM_POSICIONES; i++ ){
             juego.append(this.getSemillas(i));
+            if (i < NUM_POSICIONES -1 )
+                juego.append(",");
         }
         juego.append(";"+(this.bantumiVM.getTurno().getValue()));
         return juego.toString();
@@ -205,7 +209,21 @@ public class JuegoBantumi {
      *
      * @param juegoSerializado cadena que representa el estado completo del juego
      */
-    public void deserializa(String juegoSerializado) {
-        // @TODO
+    public void deserializa(String juegoSerializado) throws Exception {
+        String[] juego = juegoSerializado.split(";");
+        String[] posiciones = juego[0].split(",");
+        String turnoActivo = juego[1];
+
+        if (Turno.turnoJ1.equals(turnoActivo))
+            this.bantumiVM.setTurno(Turno.turnoJ1);
+        else if (Turno.turnoJ2.equals(Turno.turnoJ2))
+            this.bantumiVM.setTurno(Turno.turnoJ2);
+        else throw new Exception("No hay un turno activo valido");
+
+        if (posiciones.length == NUM_POSICIONES)
+            for (int pos= 0; pos < NUM_POSICIONES; pos++)
+                this.bantumiVM.setNumSemillas(pos,Integer.valueOf(posiciones[pos]));
+        else
+            throw new Exception("El numero de pocisiones a recuperar de la partida no es correcto: " + (posiciones.length));
     }
 }

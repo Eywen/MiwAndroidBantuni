@@ -18,7 +18,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import java.io.BufferedReader;
 import java.io.FileOutputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -137,6 +139,10 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.opcGuardarPartida:
                 accionGuardarPartidaSF();
+                return true;
+            case R.id.opcRecuperarPartida:
+                accionRecuperarPartida();
+                return true;
 
             // @TODO!!! resto opciones
 
@@ -157,11 +163,32 @@ public class MainActivity extends AppCompatActivity {
             FileOutputStream fos;
 
             fos = openFileOutput(obtenerNombreFichero(), Context.MODE_APPEND); // Memoria interna
-            fos.write(juegoBantumi.serializa().getBytes());
+            fos.write(juego.getBytes());
             fos.write('\n');
             fos.close();
             Log.i(LOG_TAG, "Click Guardar partida en SF -> " + juego);
 
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "FILE I/O ERROR: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private void accionRecuperarPartida() {
+
+        BufferedReader fin;
+        try {   // Leer fichero
+            fin = new BufferedReader(
+                    new InputStreamReader(openFileInput(obtenerNombreFichero()))); // Memoria interna
+            String partida = fin.readLine();
+            /*while (linea != null) {
+                hayContenido = true;
+                tvContenidoFichero.append(linea + '\n');
+                linea = fin.readLine();
+            }*/
+            fin.close();
+            Log.i(LOG_TAG, "Leer fichero, primera linea: " + partida);
+            this.juegoBantumi.deserializa(partida);
         } catch (Exception e) {
             Log.e(LOG_TAG, "FILE I/O ERROR: " + e.getMessage());
             e.printStackTrace();
