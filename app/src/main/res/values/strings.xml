@@ -50,6 +50,9 @@
     <string name="txtDialogoFinalPregunta">¿Desea jugar otra partida?</string>
     <string name="txtDialogoResetTitulo">Reinicio del juego</string>
     <string name="txtDialogoResetPregunta">¿Desea reiniciar la partida?</string>
+    <string name="txtDialogoRecuerarPartidaTitulo">Recuperar partida</string>
+    <string name="txtDialogoRecuerarPartidaPregunta">¿Desea recuperar la partida ?</string>
+
 
     <!-- Diálogo Common -->
     <string name="txtDialogoFinalAfirmativo">Sí</string>

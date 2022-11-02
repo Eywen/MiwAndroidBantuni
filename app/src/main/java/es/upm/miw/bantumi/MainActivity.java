@@ -156,8 +156,9 @@ public class MainActivity extends AppCompatActivity {
                 accionGuardarPartidaSF();
                 return true;
             case R.id.opcRecuperarPartida:
-                accionRecuperarPartida();
+                new RecuperarPartidaDialogo().show(getSupportFragmentManager(), "ALERT_DIALOG");
                 return true;
+            
 
             // @TODO!!! resto opciones
 
@@ -189,18 +190,17 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void accionRecuperarPartida() {
+    public void accionRecuperarPartida() {
+
+
+
 
         BufferedReader fin;
         try {   // Leer fichero
             fin = new BufferedReader(
                     new InputStreamReader(openFileInput(obtenerNombreFichero()))); // Memoria interna
             String partida = fin.readLine();
-            /*while (linea != null) {
-                hayContenido = true;
-                tvContenidoFichero.append(linea + '\n');
-                linea = fin.readLine();
-            }*/
+
             fin.close();
             Log.i(LOG_TAG, "Leer fichero, primera linea: " + partida);
             this.juegoBantumi.deserializa(partida);
