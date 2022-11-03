@@ -19,6 +19,12 @@
             android:text="@string/txtOpcionMejoresResultados"
             android:textAlignment="center"
             android:textSize="24sp" />
+        <Button
+            android:id="@+id/btDeleteTopTen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/txtButtonEliminarResultados"
+            />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
