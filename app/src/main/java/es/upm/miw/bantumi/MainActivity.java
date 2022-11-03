@@ -2,6 +2,7 @@ package es.upm.miw.bantumi;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.PreferenceManager;
@@ -21,11 +23,11 @@ import com.google.android.material.snackbar.Snackbar;
 import java.io.BufferedReader;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
+import java.util.List;
 import java.util.Locale;
 
 import es.upm.miw.bantumi.model.BantumiViewModel;
 import es.upm.miw.bantumi.model.PuntuacionEntity;
-import es.upm.miw.bantumi.model.PuntuacionRepository;
 import es.upm.miw.bantumi.model.PuntuacionViewModel;
 
 public class MainActivity extends AppCompatActivity {
@@ -158,9 +160,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.opcRecuperarPartida:
                 new RecuperarPartidaDialogo().show(getSupportFragmentManager(), "ALERT_DIALOG");
                 return true;
-            
-
-            // @TODO!!! resto opciones
+            case R.id.opcMejoresResultados:
+                accionMejoresResultados();
+                return true;
 
             default:
                 Snackbar.make(
@@ -183,6 +185,12 @@ public class MainActivity extends AppCompatActivity {
             fos.write('\n');
             fos.close();
             Log.i(LOG_TAG, "Click Guardar partida en SF -> " + juego);
+
+            Snackbar.make(
+                    findViewById(android.R.id.content),
+                    getString(R.string.txtDialogoPartidaGuardadaOK),
+                    Snackbar.LENGTH_LONG
+            ).show();
 
         } catch (Exception e) {
             Log.e(LOG_TAG, "FILE I/O ERROR: " + e.getMessage());
@@ -281,5 +289,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void accionReiniciar(){
         new ResetAlertDialog().show(getSupportFragmentManager(), "ALERT_DIALOG");
+    }
+
+    private void accionMejoresResultados() {
+        Intent intent = new Intent(MainActivity.this, TopTenActivity.class);
+        startActivity(intent);
     }
 }

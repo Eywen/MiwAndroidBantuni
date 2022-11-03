@@ -44,5 +44,7 @@ public class PuntuacionViewModel extends AndroidViewModel {
         puntuacionRepository.delete(item);
     }
 
-    public void updateUser(PuntuacionEntity user){puntuacionRepository.updateUser(user);}
+    public void UpdatePuntuacion(PuntuacionEntity puntuacion){puntuacionRepository.updatePuntuacion(puntuacion);}
+
+    public LiveData<List<PuntuacionEntity>> getTopTen(){return puntuacionRepository.getTopTen();}
 }

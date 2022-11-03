@@ -22,8 +22,11 @@ public interface IPuntuacionDAO {
     void deleteAll();
 
     @Delete
-    void delete(PuntuacionEntity grupo);
+    void delete(PuntuacionEntity puntuacion);
 
     @Update
-    void updateUser (PuntuacionEntity user);
+    void updatPuntuacion(PuntuacionEntity puntuacion);
+
+    @Query("SELECT * FROM " + PuntuacionEntity.TABLA + " ORDER BY MAX(almacenJugador, almacenMaquina) DESC LIMIT 10")
+    LiveData<List<PuntuacionEntity>> getTopTen();
 }

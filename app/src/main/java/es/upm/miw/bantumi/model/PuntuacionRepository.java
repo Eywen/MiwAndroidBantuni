@@ -36,5 +36,9 @@ public class PuntuacionRepository {
 
     public void delete(PuntuacionEntity item)  {puntuacionDAO.delete(item);    }
 
-    public void updateUser(PuntuacionEntity user) {puntuacionDAO.updateUser(user);}
+    public void updatePuntuacion(PuntuacionEntity puntuacion) {puntuacionDAO.updatPuntuacion(puntuacion);}
+
+    public LiveData<List<PuntuacionEntity>> getTopTen() {
+        return puntuacionDAO.getTopTen();
+    }
 }

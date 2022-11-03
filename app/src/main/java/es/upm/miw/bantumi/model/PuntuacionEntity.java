@@ -14,8 +14,8 @@ public class PuntuacionEntity {
 
     private String jugador;
     private Date fecha;
-    private int almacenJugador;
-    private int almacenMaquina;
+    private Integer almacenJugador;
+    private Integer almacenMaquina;
 
     public PuntuacionEntity() {
     }
@@ -47,19 +47,19 @@ public class PuntuacionEntity {
         this.fecha = fecha;
     }
 
-    public int getAlmacenJugador() {
+    public Integer getAlmacenJugador() {
         return almacenJugador;
     }
 
-    public void setAlmacenJugador(int almacenJugador) {
+    public void setAlmacenJugador(Integer almacenJugador) {
         this.almacenJugador = almacenJugador;
     }
 
-    public int getAlmacenMaquina() {
+    public Integer getAlmacenMaquina() {
         return almacenMaquina;
     }
 
-    public void setAlmacenMaquina(int almacenMaquina) {
+    public void setAlmacenMaquina(Integer almacenMaquina) {
         this.almacenMaquina = almacenMaquina;
     }
 }
